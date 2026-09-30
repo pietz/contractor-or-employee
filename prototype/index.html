@@ -69,12 +69,6 @@ svg.i{width:1em;height:1em;flex:none}
 .btn-lg{min-height:var(--h-lg);padding:10px 36px;font-size:17px}
 .btn[disabled]{opacity:.5;pointer-events:none}
 
-/* ---------- Rainbow highlight (ui/RainbowHighlight.tsx) ---------- */
-@property --angle{syntax:"<angle>";initial-value:0deg;inherits:false}
-.rainbow{position:relative;isolation:isolate}
-.rainbow::before{content:"";position:absolute;inset:-3px;z-index:-1;border-radius:inherit;background:conic-gradient(from var(--angle) at 50% 50%,#ffc876,#79fff7,#ff71f5,#ffc876);filter:blur(18px);opacity:.6;animation:spin 4s linear infinite}
-@keyframes spin{to{--angle:360deg}}
-
 /* ---------- Chrome ---------- */
 .topbar{position:relative;z-index:5}
 .topbar-in{max-width:1180px;margin:0 auto;height:80px;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
@@ -98,7 +92,7 @@ main{flex:1;position:relative}
 @keyframes viewOut{to{opacity:0;transform:translateY(-8px)}}
 
 /* ---------- Intro ---------- */
-.intro{max-width:880px;margin:0 auto;padding:64px 32px 0;text-align:center}
+.intro{max-width:880px;margin:0 auto;padding:118px 32px 0;text-align:center}
 .pill-note{display:inline-flex;align-items:center;gap:8px;background:rgb(255 255 255 / .4);border-radius:var(--pill);padding:6px 14px 6px 8px;font-size:13px;font-weight:500;color:var(--s600)}
 .pill-note b{background:#fff;color:var(--s700);font-weight:600;border-radius:var(--pill);padding:2px 9px;font-size:12px}
 .intro h1{font-size:68px;line-height:1.02;font-weight:700;letter-spacing:-.045em;margin-top:22px;color:var(--s700)}
@@ -106,8 +100,8 @@ main{flex:1;position:relative}
 .fork{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;max-width:720px;margin:44px auto 0;text-align:left}
 .fork-card{display:flex;align-items:center;gap:16px;border:0;border-radius:var(--r-3xl);padding:22px 22px 22px 22px;text-align:left;transition:transform .25s var(--ease),background .2s}
 .fork-card:hover{transform:translateY(-2px)}
-.fork-main{background:rgb(241 245 249 / .92)}
-.fork-main:hover{background:#fff}
+.fork-main{background:#fff;box-shadow:var(--shadow-md)}
+.fork-main:hover{box-shadow:var(--shadow-lg)}
 .fork-alt{background:rgb(255 255 255 / .4);-webkit-backdrop-filter:blur(32px);backdrop-filter:blur(32px)}
 .fork-alt:hover{background:rgb(255 255 255 / .6)}
 .fork-ic{width:48px;height:48px;border-radius:999px;display:grid;place-items:center;flex:none}
@@ -117,6 +111,7 @@ main{flex:1;position:relative}
 .fork-card b{display:block;font-size:17px;font-weight:600;color:var(--s700);letter-spacing:-.01em}
 .fork-card span.s{display:block;font-size:14px;color:var(--s500);margin-top:2px}
 .fork-card .go{margin-left:auto;width:36px;height:36px;border-radius:999px;display:grid;place-items:center;color:var(--s700);background:#fff;border:1px solid var(--s200);flex:none;transition:transform .25s var(--ease)}
+.fork-main .go{background:var(--s700);border-color:var(--s700);color:#fff}
 .fork-card:hover .go{transform:translateX(3px)}
 .fork-card .go svg{width:15px;height:15px}
 .worker-note{max-width:720px;margin:14px auto 0;text-align:left;padding:20px 22px;font-size:14.5px;color:var(--s600);line-height:1.6;animation:viewIn .35s var(--ease) both}
@@ -125,7 +120,6 @@ main{flex:1;position:relative}
 .trust{list-style:none;padding:0;margin:40px auto 0;display:flex;justify-content:center;flex-wrap:wrap;gap:10px 26px;font-size:13.5px;color:var(--s600);font-weight:500}
 .trust li{display:flex;align-items:center;gap:8px}
 .trust svg{width:16px;height:16px;color:var(--s700)}
-.intro-demo{margin:56px auto 0;max-width:560px}
 
 /* ---------- Evidence meter (live + result) ---------- */
 .meter{position:relative}
@@ -220,118 +214,48 @@ main{flex:1;position:relative}
 
 /* Weighing interstitial */
 .weigh{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:420px;gap:18px}
-.shimmer{font-size:20px;font-weight:600;letter-spacing:-.01em;background:linear-gradient(90deg,var(--s500) 0%,var(--s500) 40%,#fff 50%,var(--s500) 60%,var(--s500) 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 1.6s linear infinite}
-@keyframes shimmer{from{background-position:200% center}to{background-position:-200% center}}
-.twinkle{width:34px;height:34px;color:var(--s700);animation:twinkle 1.6s ease-in-out infinite}
-@keyframes twinkle{0%,100%{opacity:.35;transform:scale(.7) rotate(-8deg)}50%{opacity:1;transform:scale(1) rotate(0)}}
+.weigh-txt{font-size:18px;font-weight:500;color:var(--s500);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
 
 /* ---------- Result ---------- */
-.rwrap{max-width:1080px;margin:0 auto;padding:16px 32px 0}
-.rgrid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:16px;align-items:start;margin-top:16px}
-.rcol{display:flex;flex-direction:column;gap:16px;min-width:0}
-.rside{position:sticky;top:16px}
-.rise{animation:viewIn .6s var(--ease) both}
-.verdict{padding:36px 40px 32px}
-.v-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
-.v-kicker{font-size:13px;color:var(--s500);font-weight:500;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.v-kicker .dotsep{width:3px;height:3px;background:var(--s400);border-radius:9px}
-.v-title{font-size:44px;line-height:1.08;font-weight:700;letter-spacing:-.04em;margin-top:12px;color:var(--s700)}
-.v-title .conf{color:var(--s500);font-weight:600;font-size:.62em;letter-spacing:-.02em;white-space:nowrap;vertical-align:.12em}
-.v-copy{font-size:16.5px;line-height:1.6;color:var(--s600);margin-top:14px;max-width:640px}
-.v-abc{margin-top:16px;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;font-size:14.5px;line-height:1.55;color:var(--s600);max-width:680px}
-.v-abc svg{width:18px;height:18px;flex:none;color:var(--blue-600);margin-top:2px}
-.v-abc b{color:var(--s700)}
-.confring{flex:none;width:100px;height:100px;position:relative}
-.confring svg{width:100%;height:100%;transform:rotate(-90deg)}
-.confring .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.confring .num b{font-size:30px;font-weight:700;letter-spacing:-.03em;color:var(--s700);font-variant-numeric:tabular-nums;line-height:1}
-.confring .num span{font-size:11px;color:var(--s500);font-weight:500;margin-top:4px}
-.confring .arc{transition:stroke-dashoffset 1.4s var(--ease)}
-.v-meter{margin-top:28px;padding:20px 22px 16px}
-.risk{margin-top:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:15px;color:var(--s600)}
-.risk .badge{display:inline-flex;align-items:center;gap:8px;border-radius:var(--pill);padding:6px 14px;font-weight:600;font-size:14px;border:1px solid}
-.risk .badge i{width:8px;height:8px;border-radius:9px;background:currentColor}
-.risk .hi{background:var(--danger-bg);color:var(--danger-text);border-color:#fecaca}
-.risk .mid{background:var(--warning-bg);color:var(--warning-text);border-color:#fde68a}
-.risk .lo{background:var(--success-bg);color:var(--success-text);border-color:#bbf7d0}
-.unsure-note{margin-top:10px;font-size:13.5px;color:var(--s500);display:flex;gap:8px;align-items:center}
-.unsure-note svg{width:15px;height:15px}
-
-.card{padding:28px 30px}
-.card h2{font-size:20px;font-weight:700;letter-spacing:-.02em}
-.card .sub{font-size:14px;color:var(--s500);margin-top:4px}
-.eyebrow{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--s500)}
-
-/* Tug of war rows */
-.tow-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) 48px;gap:16px;margin-top:22px;font-size:11.5px;font-weight:600;color:var(--s500);letter-spacing:.02em}
-.tow-head .axis{display:flex;justify-content:space-between}
-.tow-head .axis span{display:flex;align-items:center;gap:6px}
-.tow-head .axis i{width:8px;height:8px;border-radius:9px}
-.tow{list-style:none;margin:10px 0 0;padding:0}
-.tow li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) 48px;gap:16px;align-items:center;padding:13px 0;border-top:1px solid rgb(148 163 184 / .25)}
-.tow .lab b{display:block;font-size:14.5px;font-weight:600;color:var(--s700);line-height:1.3}
-.tow .lab span{display:block;font-size:13px;color:var(--s500);margin-top:2px;line-height:1.35}
-.bar{position:relative;height:14px}
-.bar::before{content:"";position:absolute;left:50%;top:-8px;bottom:-8px;width:1px;background:var(--s400);opacity:.55}
-.bar::after{content:"";position:absolute;left:0;right:0;top:6px;height:2px;border-radius:2px;background:rgb(255 255 255 / .6)}
-.bar i{position:absolute;top:0;height:14px;border-radius:99px;width:0;transition:width .9s var(--ease);z-index:1}
-.bar i.emp{left:50%;background:var(--c-employee);border-top-left-radius:2px;border-bottom-left-radius:2px}
-.bar i.con{right:50%;background:var(--c-contractor);border-top-right-radius:2px;border-bottom-right-radius:2px}
-.bar .zero{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:99px;border:2px solid var(--s400);background:var(--s100);z-index:1}
-.tow .val{text-align:right;font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--s700)}
-.tow .val.con{color:var(--blue-600)}
-.tow .val.zero{color:var(--s400);font-weight:500}
-.tow li.total{border-top:1px solid var(--s400)}
-.tow li.total .lab{grid-column:1 / 3}
-.tow li.total .lab b{font-size:15px}
-.early{margin-top:14px;display:flex;gap:10px;align-items:flex-start;padding:12px 14px;font-size:13.5px;color:var(--s600);line-height:1.5}
-.early svg{width:16px;height:16px;flex:none;margin-top:2px;color:var(--s500)}
-.method{margin-top:10px;font-size:12.5px;color:var(--s500);line-height:1.55}
-
-/* Stakes */
-.stakes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
-.stake{padding:16px 16px 14px}
-.stake .fig{font-size:24px;font-weight:700;letter-spacing:-.03em;color:var(--s700);line-height:1.15}
-.stake p{font-size:13px;color:var(--s600);margin-top:6px;line-height:1.5}
-.stake a{display:inline-block;margin-top:8px;font-size:12px;font-weight:500}
-.fix{margin-top:12px;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;font-size:14px;color:var(--s600);line-height:1.55;background:rgb(240 253 244 / .75);border-radius:var(--r-2xl)}
-.fix svg{width:18px;height:18px;color:var(--success-text);flex:none;margin-top:1px}
-.fix b{color:var(--s700)}
-
-/* CTA handoff */
-.cta-wrap{border-radius:var(--r-3xl)}
-.cta{position:relative;border-radius:var(--r-3xl);background:rgb(241 245 249 / .94);padding:28px 26px 24px}
-.cta .brand{display:flex;align-items:center;justify-content:space-between}
-.cta .brand .wg-logo{height:22px;width:auto;color:var(--brand-navy)}
-.cta .brand span{font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--s500)}
-.cta h3{font-size:22px;line-height:1.25;font-weight:700;letter-spacing:-.025em;margin-top:22px}
-.cta p{font-size:14.5px;line-height:1.6;color:var(--s600);margin-top:10px}
-.cta ul{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
-.cta li{display:flex;gap:10px;font-size:14px;color:var(--s600);align-items:flex-start}
-.cta li svg{width:15px;height:15px;color:var(--s700);flex:none;margin-top:3px}
-.cta .btns{display:flex;flex-direction:column;gap:10px;margin-top:22px}
-.cta .btn{width:100%;padding-left:22px;padding-right:22px}
-
-/* Memo */
-.memo{padding:24px 26px}
-.memo h2{font-size:17px}
-.memo form{display:flex;flex-direction:column;gap:10px;margin-top:16px}
-.input{width:100%;height:var(--h-md);border-radius:var(--pill);border:1px solid var(--s200);background:#fff;padding:0 20px;font:inherit;font-size:15px;color:var(--s700);transition:border-color .2s,box-shadow .2s}
-.input::placeholder{color:var(--s400)}
-.input:focus{outline:none;border-color:var(--s700);box-shadow:0 0 0 3px rgb(51 65 85 / .12)}
-.input.err{border-color:var(--danger-border);animation:shake .4s ease-in-out}
-@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
-.errmsg{font-size:12.5px;color:var(--danger-text);padding-left:20px;margin-top:-4px}
-.fine{font-size:12px;color:var(--s500);line-height:1.5;text-align:center}
-.sent{margin-top:16px;display:flex;gap:12px;align-items:flex-start;padding:16px;border-radius:var(--r-2xl);background:rgb(240 253 244 / .85);animation:viewIn .4s var(--ease) both}
-.sent .ok{width:32px;height:32px;border-radius:99px;background:var(--success-text);color:#fff;display:grid;place-items:center;flex:none}
-.sent .ok svg{width:15px;height:15px}
-.sent b{display:block;font-size:15px;color:var(--s700)}
-.sent span{font-size:13.5px;color:var(--s600)}
-
-.disclaimer{max-width:1080px;margin:16px auto 0;padding:0 32px}
-.disclaimer .in{padding:20px 24px;font-size:12.5px;line-height:1.65;color:var(--s500)}
-.disclaimer .acts{display:flex;justify-content:center;margin-top:18px}
+.rwrap{max-width:780px;margin:0 auto;padding:8px 32px 0}
+body.is-result .footer{display:none}
+.result{padding:32px 48px 30px;text-align:center}
+.r-label{font-size:13px;font-weight:500;color:var(--s500)}
+.r-title{font-size:52px;line-height:1.05;font-weight:700;letter-spacing:-.045em;margin-top:10px;color:var(--s700)}
+.r-title small{font-size:.42em;font-weight:600;color:var(--s500);letter-spacing:-.01em;margin-left:4px;vertical-align:.35em}
+.chip{display:inline-flex;align-items:center;gap:7px;margin-top:14px;background:#fff;border:1px solid var(--s200);border-radius:var(--pill);padding:5px 13px;font-size:13.5px;font-weight:600;color:var(--s600);font-variant-numeric:tabular-nums}
+.chip i{width:7px;height:7px;border-radius:9px;background:var(--c-employee)}
+.chip.c i{background:var(--c-contractor)}
+.chip.m i{background:var(--s400)}
+.r-meter{margin-top:22px;padding:18px 20px 12px;text-align:left}
+.r-advice{font-size:17px;line-height:1.55;color:var(--s600);margin:20px auto 0;max-width:580px;text-wrap:balance}
+.divider{display:flex;align-items:center;gap:14px;margin:24px 0 14px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--s500)}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:rgb(100 116 139 / .28)}
+.options2{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch}
+.tile{border-radius:var(--r-3xl);padding:24px 26px;display:flex;flex-direction:column;position:relative}
+.tile h2{font-size:18px;font-weight:700;letter-spacing:-.02em}
+.tile ul{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:9px}
+.tile li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.45;color:var(--s600)}
+.tile li svg{width:15px;height:15px;flex:none;margin-top:3px}
+.tile-diy{background:rgb(255 255 255 / .4);-webkit-backdrop-filter:blur(32px);backdrop-filter:blur(32px);border:1px solid rgb(255 255 255 / .35);margin:8px 0}
+.tile-diy li{color:var(--s500)}
+.tile-diy li svg{color:var(--s400)}
+.tile-wg{background:#fff;border:1px solid var(--s200);box-shadow:0 20px 40px -18px rgb(15 23 42 / .35),var(--shadow-md)}
+.tile-wg .wg-logo{position:absolute;top:27px;right:26px;height:16px;width:auto;color:var(--brand-navy)}
+.tile-wg li svg{color:var(--s700)}
+.tile-wg .btn{margin-top:auto;width:100%;padding-left:20px;padding-right:20px;white-space:nowrap;gap:10px}
+.tile .disclose{font-size:12.5px;color:var(--s500);margin-top:3px}
+.quiet-link{margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--s700);text-decoration:underline;text-decoration-color:var(--s300);text-underline-offset:5px}
+.quiet-link:hover{color:var(--s900);text-decoration-color:var(--s700)}
+.quiet-link svg{width:14px;height:14px;transition:transform .25s var(--ease)}
+.quiet-link:hover svg{transform:translateX(3px)}
+.tile-wg ul{margin-bottom:20px}
+.r-foot{text-align:center;margin-top:20px;font-size:12.5px;color:var(--s500)}
+.r-foot button{background:none;border:0;padding:4px 6px;font-size:14px;font-weight:500;color:var(--s700);text-decoration:underline;text-decoration-color:var(--s400);text-underline-offset:4px;display:inline-flex;align-items:center;gap:6px}
+.r-foot button:hover{text-decoration-color:var(--s700)}
+.r-foot button svg{width:13px;height:13px}
+.r-foot p{margin-top:8px}
 
 .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,16px);background:var(--s700);color:#fff;font-size:14px;font-weight:500;padding:12px 20px;border-radius:var(--pill);box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:all .3s var(--ease);z-index:50}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -339,12 +263,6 @@ main{flex:1;position:relative}
 @media (prefers-reduced-motion:reduce){*,*::before{animation:none !important;transition:none !important}}
 
 /* ---------- Responsive ---------- */
-@media (max-width:980px){
-  .rgrid{display:flex;flex-direction:column}
-  .rcol{display:contents}
-  .rside{position:static}
-  .o1{order:1}.o2{order:2}.o3{order:3}.o4{order:4}.o5{order:5}
-}
 @media (max-width:640px){
   .topbar-in{height:64px;padding:0 16px}
   .toolname span.t{display:none}
@@ -356,7 +274,6 @@ main{flex:1;position:relative}
   .intro .lede{font-size:16.5px}
   .fork{grid-template-columns:1fr;margin-top:32px}
   .trust{flex-direction:column;align-items:flex-start;gap:10px;max-width:320px;margin-left:auto;margin-right:auto}
-  .intro-demo{margin-top:36px}
   .qwrap{padding:16px 12px 0}
   .deck{margin-top:28px}
   .qcard{padding:18px 18px 22px;min-height:0}
@@ -370,24 +287,16 @@ main{flex:1;position:relative}
   .states{grid-template-columns:1fr 1fr;gap:8px;margin-top:22px}
   .live{margin:14px 0 0;padding:14px 16px 12px}
   .rwrap{padding:4px 12px 0}
-  .verdict{padding:24px 20px 22px}
-  .v-top{flex-direction:column-reverse;gap:16px}
-  .confring{width:92px;height:92px}
-  .confring .num b{font-size:24px}
-  .v-title{font-size:30px}
-  .v-copy{font-size:15.5px}
-  .v-meter{padding:16px 14px 12px}
-  .card{padding:22px 18px}
-  .tow-head{grid-template-columns:1fr 44px;gap:10px}
-  .tow-head .lh{display:none}
-  .tow li{grid-template-columns:1fr 44px;gap:8px 10px}
-  .tow .lab{grid-column:1 / -1}
-  .tow li.total .lab{grid-column:1}
-  .intro-demo .cap span{display:none}
-  .stakes{grid-template-columns:1fr}
-  .cta{padding:24px 20px 20px}
-  .memo{padding:22px 18px}
-  .disclaimer{padding:0 12px}
+  .result{padding:26px 20px 24px}
+  .r-title{font-size:38px}
+  .r-title small{display:block;margin:6px 0 0;vertical-align:0;font-size:.45em}
+  .r-meter{padding:14px 14px 10px}
+  .r-advice{font-size:16px}
+  .options2{grid-template-columns:1fr;gap:12px}
+  .tile{padding:22px 20px}
+  .tile-diy{margin:0}
+
+  .tile-wg .wg-logo{top:24px;right:20px}
   .footer{padding:24px 20px 28px}
 }
 </style>
@@ -408,6 +317,7 @@ main{flex:1;position:relative}
   <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V8l-5-5Z"/><path d="M14 3v5h5M8.5 13h7M8.5 16.5h5"/></symbol>
   <symbol id="i-restart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1L3.5 8.5"/><path d="M3.5 3.5v5h5"/></symbol>
   <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4.5 4.5 0 0 0 6.4.4l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2"/><path d="M14 10a4.5 4.5 0 0 0-6.4-.4l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/></symbol>
+  <symbol id="i-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 12h10"/></symbol>
   <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></symbol>
 </defs></svg>
 
@@ -496,27 +406,23 @@ function evaluate(st, answers){
 /* =====================================================================
    COPY
    ===================================================================== */
-const VERDICT = {employee:"Likely an employee (W-2)", contractor:"Likely a contractor (1099)", close:"Too close to call"};
-function verdictCopy(r){
-  const S = stateIn(r.st);
-  if (r.verdict === "employee") return `Under the tests that apply to you, this person would likely be treated as an employee. The safest path is to engage them as a W-2 employee. An Employer of Record like WorkGenius can do this in days, without you setting up payroll in ${S}.`;
-  if (r.verdict === "contractor") return "Based on your answers, this engagement has few of the signs regulators associate with employment. Keep it that way: put the scope, deliverables, and fees in writing, keep evidence that they serve other clients, and re-check if the role becomes ongoing or more directed.";
-  return "Your answers point both ways. Regulators look at how the relationship works in practice, not what the contract calls it. You can lower the risk by restructuring the engagement, or remove it by engaging this person as an employee through an Employer of Record.";
-}
-const ABC_LINE = s => `${STATE_NAME[s]} presumes the worker is an employee. The company must prove all three prongs of the ABC test: free from your control, work outside your usual business, and an independent business of their own.`;
-const UTM = v => `?utm_source=classification-check&utm_medium=tool&utm_campaign=${v}`;
-const CTA = {
-  employee:{title:s=>`Make it a W-2 role, without setting up payroll in ${s}`, body:"WorkGenius becomes the legal employer. You keep directing the work, and we run payroll, taxes, benefits, and compliance.",
-    points:["Live in days, in all 50 states","Contractor-to-employee conversion handled","One invoice for payroll, taxes, and benefits"],
-    primary:["Hire them compliantly through WorkGenius EOR","https://www.workgenius.com/eor-contact/"], secondary:["See how EOR works","https://www.workgenius.com/employer-of-record/"]},
-  close:{title:()=>"Get a specialist's view before you decide", body:"A short call with an EOR specialist on this engagement: when restructuring is enough, and when converting to W-2 is the cleaner path.",
-    points:["Free, about 30 minutes","Specific to this role and state","Both options compared"],
-    primary:["Ask an EOR specialist","https://www.workgenius.com/eor-contact/"], secondary:null},
-  contractor:{title:()=>"Keep the contractor. Hand off the liability.", body:"As your Agent of Record, WorkGenius engages and pays your contractors compliantly, with contracts and a paper trail, and carries the classification liability.",
-    points:["Compliant contracts and payments","Classification checked as roles change","Switch to W-2 through EOR anytime"],
-    primary:["Keep them as a contractor, with the liability handled (Agent of Record)","https://www.workgenius.com/book-demo/"], secondary:["Re-check if the role changes","#restart"]}
+const VERDICT = {employee:["Likely an employee","(W-2)"], contractor:["Likely a contractor","(1099)"], close:["Too close to call",""]};
+const ADVICE = {
+  employee:"Paying them as a 1099 contractor would be risky. Put them on payroll yourself, or use an Employer of Record.",
+  close:"This one could go either way. Have an employment lawyer or specialist look at it.",
+  contractor:"A contractor setup looks fine here. Keep the scope and deliverables in writing."
 };
-const DISCLAIMER = "This score is a general estimate based only on your answers. It is not legal or tax advice and is not a determination of any worker's status. Agencies and courts decide classification by looking at the whole working relationship in practice, and the tests differ between federal law and each state. Results depend on the accuracy of your answers, and laws change: federal wage-and-hour rules are currently under review. For a decision about a specific worker, consult a qualified employment attorney or tax adviser. The IRS can issue an official federal tax determination through Form SS-8.";
+const adviceFor = r => ADVICE[r.verdict] + (isABC(r.st) ? ` ${STATE_NAME[r.st]} is strict about this.` : "");
+const LOGO = `<svg class="wg-logo" viewBox="0 0 194 40" role="img" aria-label="WorkGenius" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M28.0382 1.3867C25.6812 0.46589 23.1728 0 20.5795 0C9.41669 0 0.334961 8.97186 0.334961 19.9996C0.334961 31.0281 9.41669 40 20.5795 40C31.7423 40 40.824 31.0281 40.824 19.9996C40.7962 15.3868 39.1652 10.8888 36.2316 7.33942L36.2301 7.33868C35.494 6.4442 34.1512 6.31256 33.2365 7.04906C33.0478 7.21581 32.8641 7.4206 32.7287 7.62027L24.8807 21.0594L22.3686 16.7333C21.784 15.7423 20.4727 15.3949 19.4533 15.9631C19.0626 16.1804 18.8306 16.4861 18.7048 16.704L16.1597 21.0214L13.6491 16.7355C13.0623 15.7423 11.7539 15.3949 10.7324 15.9631C9.72256 16.5453 9.37863 17.8033 9.95745 18.8214L14.3135 26.2785C14.6926 26.9236 15.4009 27.3244 16.1619 27.3244C16.9222 27.3244 17.6306 26.9236 18.0103 26.2771L20.5224 21.989L23.0345 26.2778C23.4136 26.9236 24.1219 27.3244 24.8829 27.3244C25.6432 27.3244 26.3515 26.9236 26.7313 26.2771L34.7652 12.5359L35.333 13.886C36.146 15.8205 36.5587 17.8684 36.5587 19.9718C36.5587 28.6848 29.3905 35.7733 20.5795 35.7733C11.7685 35.7733 4.59959 28.6848 4.59959 19.9718C4.59959 11.2589 11.7685 4.17034 20.5795 4.17034C22.5567 4.17034 24.5324 4.53676 26.4518 5.25937C27.5567 5.67991 28.7978 5.15844 29.2185 4.0972C29.4219 3.57426 29.4117 3.00159 29.1885 2.48962C28.9668 1.97985 28.5577 1.58783 28.0382 1.3867Z"/><path d="M65.8743 23.9905H65.9598L68.6673 11.174H72.3724L67.9548 29.8776H64.4208L60.9438 17.5118H60.8583L57.3812 29.8494H53.8757L49.4296 11.1458H53.1347L55.8422 23.9623H55.9277L59.4902 11.1458H62.2833L65.8743 23.9905Z"/><path d="M73.1143 22.7837C73.1143 20.6993 73.7128 19.0092 74.8813 17.6853C76.0498 16.3614 77.6743 15.7135 79.7548 15.7135C81.8353 15.7135 83.4598 16.3614 84.6569 17.6853C85.8254 19.0092 86.4239 20.6993 86.4239 22.7837V23.0654C86.4239 25.1499 85.8254 26.8681 84.6569 28.1638C83.4883 29.4596 81.8638 30.1356 79.7833 30.1356C77.7028 30.1356 76.0783 29.4878 74.9098 28.1638C73.7413 26.8399 73.1428 25.1499 73.1428 23.0654V22.7837H73.1143ZM76.9048 23.0654C76.9048 24.333 77.1328 25.347 77.5888 26.1076C78.0448 26.8681 78.7573 27.2625 79.7833 27.2625C80.7523 27.2625 81.4933 26.8681 81.9208 26.1076C82.3768 25.347 82.6048 24.333 82.6048 23.0654V22.7837C82.6048 21.5443 82.3768 20.5585 81.9208 19.7697C81.4648 18.981 80.7238 18.6148 79.7548 18.6148C78.7858 18.6148 78.0448 19.0092 77.6173 19.7979C77.1898 20.5866 76.9333 21.5725 76.9333 22.8119V23.0654H76.9048Z"/><path d="M96.1397 19.1764L94.7431 19.1483C94.1731 19.1483 93.7171 19.2609 93.3466 19.4863C92.9761 19.7116 92.6911 20.0496 92.5201 20.4722V29.8521H88.7295V15.9371H92.2636L92.4346 17.9934C92.7766 17.261 93.2041 16.6976 93.7171 16.3033C94.2301 15.9089 94.8571 15.6836 95.5411 15.6836C95.7406 15.6836 95.9116 15.7118 96.0542 15.7399C96.2252 15.7681 96.3677 15.7963 96.5387 15.8526L96.1397 19.1764Z"/><path d="M102.898 24.0491H101.872V29.8799H98.0527V9.82422H101.843V21.2041H102.784L106.033 15.9649H110.422L105.919 22.2745L111.106 29.8799H106.745L102.898 24.0491Z"/><path d="M127.177 27.3178C126.607 28.0502 125.723 28.6981 124.555 29.2896C123.358 29.853 121.847 30.1628 120.023 30.1628C117.715 30.1628 115.834 29.4586 114.352 28.022C112.898 26.6136 112.157 24.7545 112.157 22.4729V18.5576C112.157 16.3041 112.87 14.445 114.266 13.0366C115.663 11.6 117.487 10.8958 119.71 10.8958C122.018 10.8958 123.785 11.4592 125.011 12.5578C126.236 13.6563 126.863 15.1211 126.892 16.9238L126.863 17.0083H123.301C123.244 16.0224 122.902 15.2337 122.332 14.6422C121.762 14.0507 120.935 13.769 119.824 13.769C118.655 13.769 117.715 14.2197 117.002 15.0929C116.29 15.9661 115.948 17.121 115.948 18.5012V22.4166C115.948 23.825 116.318 24.9799 117.059 25.8813C117.8 26.7545 118.798 27.2052 120.023 27.2052C120.907 27.2052 121.619 27.1207 122.161 26.9235C122.702 26.7545 123.101 26.5291 123.386 26.2474V22.7828H120.023V20.1913H127.177V27.3178Z"/><path d="M136.355 30.1356C134.331 30.1356 132.707 29.4877 131.481 28.2202C130.256 26.9244 129.657 25.2907 129.657 23.3189V22.8119C129.657 20.7556 130.227 19.0374 131.367 17.7135C132.507 16.3896 134.046 15.7135 135.984 15.7135C137.894 15.7135 139.347 16.2769 140.402 17.4036C141.456 18.5303 141.969 20.0514 141.969 21.995V24.0513H133.562L133.533 24.1358C133.59 25.0372 133.904 25.7977 134.474 26.3893C135.015 26.9808 135.785 27.2625 136.725 27.2625C137.552 27.2625 138.264 27.178 138.806 27.009C139.347 26.8399 139.974 26.5864 140.63 26.2202L141.656 28.53C141.086 29.0089 140.345 29.3751 139.404 29.6849C138.521 29.9948 137.495 30.1356 136.355 30.1356ZM136.013 18.5867C135.3 18.5867 134.759 18.8402 134.36 19.3754C133.961 19.9106 133.704 20.6148 133.619 21.4598L133.647 21.5162H138.293V21.1781C138.293 20.3894 138.093 19.7416 137.723 19.2627C137.352 18.8402 136.782 18.5867 136.013 18.5867Z"/><path d="M147.698 15.9671L147.869 17.967C148.325 17.2628 148.923 16.6994 149.607 16.3051C150.291 15.9107 151.061 15.7135 151.916 15.7135C153.341 15.7135 154.452 16.1642 155.25 17.0374C156.048 17.9107 156.447 19.2909 156.447 21.1782V29.8539H152.628V21.1782C152.628 20.2486 152.429 19.5726 152.058 19.1782C151.688 18.7839 151.089 18.5867 150.32 18.5867C149.807 18.5867 149.379 18.6994 148.98 18.8965C148.581 19.0937 148.239 19.3754 147.983 19.7416V29.8539H144.192V15.9389H147.698V15.9671Z"/><path d="M163.23 12.641H159.439V9.82422H163.23V12.641ZM163.23 29.8799H159.439V15.9649H163.23V29.8799Z"/><path d="M174.945 27.8505C174.518 28.5828 173.948 29.1462 173.292 29.5405C172.637 29.9349 171.867 30.1321 170.984 30.1321C169.502 30.1321 168.333 29.6532 167.507 28.7237C166.68 27.7941 166.253 26.3294 166.253 24.3576V15.9635H170.043V24.3858C170.043 25.3998 170.214 26.1322 170.556 26.5829C170.898 27.0336 171.411 27.2589 172.095 27.2589C172.694 27.2589 173.235 27.1744 173.663 26.9772C174.09 26.7801 174.461 26.4984 174.717 26.1322V15.9917H178.508V29.9067H175.287L174.945 27.8505Z"/><path d="M188.995 26.0491C188.995 25.6266 188.795 25.2886 188.396 24.9787C187.997 24.6689 187.256 24.4154 186.145 24.19C184.492 23.852 183.238 23.3731 182.383 22.6971C181.528 22.0492 181.129 21.1479 181.129 20.0211C181.129 18.8099 181.642 17.7959 182.668 16.979C183.694 16.1339 185.062 15.7396 186.743 15.7396C188.539 15.7396 189.964 16.1621 191.018 16.979C192.073 17.824 192.586 18.8662 192.557 20.1338L192.529 20.2183H188.852C188.852 19.655 188.681 19.2043 188.311 18.8662C187.94 18.5282 187.427 18.3311 186.743 18.3311C186.116 18.3311 185.632 18.4719 185.29 18.7817C184.948 19.0634 184.777 19.4578 184.777 19.8803C184.777 20.3028 184.948 20.669 185.318 20.9225C185.689 21.2042 186.43 21.4295 187.57 21.6549C189.308 21.9929 190.591 22.4999 191.417 23.176C192.244 23.852 192.671 24.7534 192.671 25.9083C192.671 27.1477 192.13 28.1899 191.047 28.9786C189.964 29.7673 188.539 30.1617 186.743 30.1617C184.862 30.1617 183.38 29.6828 182.297 28.7533C181.214 27.8237 180.701 26.7533 180.73 25.5421L180.758 25.4576H184.235C184.264 26.19 184.52 26.7533 184.976 27.0632C185.432 27.4012 186.059 27.5702 186.8 27.5702C187.513 27.5702 188.026 27.4294 188.396 27.1477C188.767 26.866 188.995 26.4998 188.995 26.0491Z"/></g></svg>`;
+const ctaUrl = (base, r) => `${base}?utm_source=classification-check&utm_medium=tool&utm_campaign=${r.verdict}&state=${r.st}&verdict=${r.verdict}`;
+const OPTIONS = {
+  employee:{diy:["Do it yourself", s => [`Register as an employer in ${s}`, "Set up payroll, taxes, and workers' comp", "Can take weeks"]],
+            wg:["We become the legal employer","You keep directing the work","Live in days"], button:s => `Get a quote for ${s}`, url:"https://www.workgenius.com/eor-contact/"},
+  close:{diy:["Do it yourself", s => [`Register as an employer in ${s}`, "Set up payroll, taxes, and workers' comp", "Can take weeks"]],
+            wg:["We become the legal employer","You keep directing the work","Live in days"], button:() => "Book 15 min with a specialist", url:"https://www.workgenius.com/eor-contact/"},
+  contractor:{diy:["Keep it as is", () => ["Collect W-9s and file 1099s","Keep scope and deliverables in writing","Re-check if the role changes"]],
+            wg:["Contracts and compliance handled","One place to pay all contractors","Switch to W-2 in days if needed"], link:"Manage contractors with WorkGenius", url:"https://www.workgenius.com/book-demo/"}
+};
 
 /* =====================================================================
    UI
@@ -557,13 +463,11 @@ function renderIntro(){
     <h1>Contractor or employee?</h1>
     <p class="lede">Answer up to 7 quick questions based on IRS, Department of Labor and state ABC tests. Most checks take under a minute.</p>
     <div class="fork">
-      <div class="rainbow" style="border-radius:24px">
-        <button class="fork-card fork-main" id="hireBtn" type="button" style="width:100%">
+        <button class="fork-card fork-main" id="hireBtn" type="button">
           <span class="fork-ic">${ic("i-building")}</span>
           <span><b>I'm hiring someone</b><span class="s">Check a contractor or a new role</span></span>
           <span class="go">${ic("i-arrow")}</span>
         </button>
-      </div>
       <button class="fork-card fork-alt" id="workerBtn" type="button" aria-expanded="false">
         <span class="fork-ic">${ic("i-user")}</span>
         <span><b>I'm the worker</b><span class="s">Checking my own status</span></span>
@@ -578,18 +482,10 @@ function renderIntro(){
       <li>${ic("i-check")}Stops as soon as the answer is clear</li>
       <li>${ic("i-check")}Updated Sept 2026</li>
     </ul>
-    <div class="intro-demo glass live" aria-hidden="true">
-      <div class="cap"><b>How it works</b><span>Each answer adds evidence one way or the other</span></div>
-      ${meterHTML("introKnob", .5, {zones:true})}
-    </div>
   </section>`, () => {
     $("#hireBtn").addEventListener("click", startFlow);
     $("#workerBtn").addEventListener("click", e => { const n = $("#workerNote"); n.hidden = !n.hidden; e.currentTarget.setAttribute("aria-expanded", !n.hidden); });
     $("#shareClient").addEventListener("click", () => { const u = location.href.split(/[?#]/)[0]; navigator.clipboard?.writeText(u).catch(()=>{}); toast("Link copied (prototype)"); });
-    // gentle idle animation of the demo knob
-    const seq = [.5,.72,.88,.62,.3,.14,.5]; let i = 0;
-    clearInterval(renderIntro.t);
-    renderIntro.t = setInterval(() => { if (!document.getElementById("introKnob")) return clearInterval(renderIntro.t); setKnob("introKnob", seq[i++ % seq.length]); }, 1600);
   }, "");
 }
 
@@ -717,138 +613,47 @@ function weigh(r){
   $("#deck").dataset.left = 0;
   setTimeout(() => {
     qc.className = "qcontent in";
-    qc.innerHTML = `<div class="weigh"><svg class="twinkle"><use href="#i-sparkle"/></svg><div class="shimmer">Weighing the evidence</div></div>`;
-    setTimeout(() => renderResult(r), 1100);
+    qc.innerHTML = `<div class="weigh"><div class="weigh-txt">Weighing your answers</div></div>`;
+    setTimeout(() => renderResult(r), 800);
   }, 200);
 }
 
 /* ---------- Result ---------- */
 function renderResult(r){
-  const name = STATE_NAME[r.st], cta = CTA[r.verdict], utm = UTM(r.verdict);
-  const maxE = 2.0;
-  const confR = 50, confC = 2 * Math.PI * confR;
-  const riskCls = {employee:"hi", close:"mid", contractor:"lo"}[r.verdict];
-  const rows = [
-    {lab:"Work state", ans:`${name}${isABC(r.st) ? " · ABC test" : ""}`, E:r.prior, basis:"", state:true},
-    ...r.rows.map(x => ({lab:x.q.short, ans: x.a === "N" ? "Not sure" : x.a === "A" ? x.q.a[0] : x.q.b[0], E:x.E, n:x.a === "N"}))
-  ];
-  const rowHTML = (x, i) => `<li>
-      <div class="lab"><b>${esc(x.lab)}</b><span>${esc(x.ans)}</span></div>
-      <div class="bar">${x.E === 0 ? `<span class="zero" title="No evidence"></span>` : `<i class="${x.E > 0 ? "emp" : "con"}" data-w="${(Math.abs(x.E)/maxE*50).toFixed(1)}" style="transition-delay:${(.25 + i*.09).toFixed(2)}s"></i>`}</div>
-      <div class="val ${x.E < 0 ? "con" : x.E === 0 ? "zero" : ""}">${x.E === 0 ? (x.n ? "Not sure" : "0") : sgn(x.E)}</div></li>`;
-  const skipped = QUESTIONS.length - r.asked;
-
+  const o = OPTIONS[r.verdict], [v, tag] = VERDICT[r.verdict];
+  const chipCls = {employee:"", close:"m", contractor:"c"}[r.verdict];
   swapView(`<section class="view rwrap">
-    <div class="glass verdict rise">
-      <div class="v-top">
-        <div>
-          <div class="v-kicker"><span>Your result</span><span class="dotsep"></span><span>Work in ${esc(name)}</span><span class="dotsep"></span><span>${r.asked + 1} answer${r.asked ? "s" : ""}</span></div>
-          <h1 class="v-title">${esc(VERDICT[r.verdict]).replace(/\((W-2|1099)\)/, "<span style=\"white-space:nowrap\">($1)</span>")} <span class="conf">· ${r.confidence}% confidence</span></h1>
-        </div>
-        <div class="confring" aria-hidden="true">
-          <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="${confR}" fill="none" stroke="rgb(255 255 255 / .7)" stroke-width="10"/>
-            <circle class="arc" cx="60" cy="60" r="${confR}" fill="none" stroke="${r.verdict === "contractor" ? "var(--c-contractor)" : "var(--c-employee)"}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${confC.toFixed(1)}" stroke-dashoffset="${confC.toFixed(1)}" data-off="${(confC*(1-r.confidence/100)).toFixed(1)}"/></svg>
-          <div class="num"><b id="confNum">0%</b><span>confidence</span></div>
-        </div>
-      </div>
-      <p class="v-copy">${esc(verdictCopy(r))}</p>
-      ${isABC(r.st) ? `<div class="v-abc nested">${ic("i-scale")}<span><b>ABC test state.</b> ${esc(ABC_LINE(r.st))}</span></div>` : ""}
-      <div class="v-meter nested">${meterHTML("resKnob", .5)}</div>
-      <div class="risk"><span>If you pay them as a 1099 contractor, misclassification risk:</span><span class="badge ${riskCls}"><i></i>${r.risk}%</span></div>
-      ${r.notSure ? `<div class="unsure-note">${ic("i-info")}You weren't sure about ${r.notSure} question${r.notSure > 1 ? "s" : ""}, which adds no evidence and lowers confidence.</div>` : ""}
+    <div class="glass result">
+      <div class="r-label">Your result · ${esc(STATE_NAME[r.st])}</div>
+      <h1 class="r-title">${esc(v)}${tag ? ` <small>${tag}</small>` : ""}</h1>
+      <span class="chip ${chipCls}"><i></i>${r.confidence}% sure</span>
+      <div class="r-meter nested">${meterHTML("resKnob", .5)}</div>
+      <p class="r-advice">${esc(adviceFor(r))}</p>
     </div>
-
-    <div class="rgrid">
-      <div class="rcol">
-        <section class="glass card o3 rise" style="animation-delay:.08s">
-          <div class="eyebrow">Why</div>
-          <h2 style="margin-top:6px">How your answers pulled</h2>
-          <p class="sub">Each answer adds evidence toward one side. Longer bars carry more weight in the official tests.</p>
-          <div class="tow-head"><span class="lh">Factor · your answer</span><span class="axis"><span><i style="background:var(--c-contractor)"></i>1099 contractor</span><span>W-2 employee<i style="background:var(--c-employee)"></i></span></span><span style="text-align:right">Points</span></div>
-          <ul class="tow">${rows.map(rowHTML).join("")}
-            <li class="total"><div class="lab"><b>Net evidence</b><span>${r.p >= .5 ? `${Math.round(r.p*100)}% likely employee` : `${Math.round((1-r.p)*100)}% likely contractor`} (shown capped at ${CAP}%)</span></div><div class="val ${r.L < 0 ? "con" : ""}">${sgn(r.L)}</div></li>
-          </ul>
-          ${r.stopped ? `<div class="early nested">${ic("i-bolt")}<span>We stopped after ${r.asked} of 6 questions because the answers were already decisive. The ${skipped} remaining question${skipped > 1 ? "s" : ""} could not change the verdict enough.</span></div>` : ""}
-          <p class="method">Weights follow the order the rules themselves use: the DOL's two core factors (control, and profit or loss) carry the most, and ABC states make core-business work close to decisive. "Not sure" adds no points but lowers confidence.</p>
-        </section>
-
-        <section class="glass card o4 rise" style="animation-delay:.16s">
-          <div class="eyebrow">What's at stake</div>
-          <h2 style="margin-top:6px">${r.verdict === "contractor" ? "If the role drifts toward employment" : "If a regulator reclassifies them"}</h2>
-          <div class="stakes">
-            <div class="stake nested"><div class="fig">~10.7%</div><p>of pay per year in back federal payroll taxes, for up to 3 open years (IRC 3509)</p><a href="https://www.law.cornell.edu/uscode/text/26/3509" target="_blank" rel="noopener">26 U.S.C. 3509</a></div>
-            <div class="stake nested"><div class="fig">2×</div><p>unpaid minimum wage and overtime: back wages plus equal liquidated damages (FLSA)</p><a href="https://www.law.cornell.edu/uscode/text/29/216" target="_blank" rel="noopener">29 U.S.C. 216(b)</a></div>
-            <div class="stake nested"><div class="fig">$5k to $25k</div><p>per violation for willful misclassification in California</p><a href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=LAB&sectionNum=226.8" target="_blank" rel="noopener">Cal. Labor Code 226.8</a></div>
-          </div>
-          <div class="fix">${ic("i-check")}<span><b>There is a fix.</b> The IRS Voluntary Classification Settlement Program lets eligible companies reclassify going forward for about 10% of one year's reduced-rate tax, with no interest or penalties. <a href="https://www.irs.gov/businesses/small-businesses-self-employed/voluntary-classification-settlement-program" target="_blank" rel="noopener">IRS: VCSP</a></span></div>
-        </section>
+    <div class="divider"><span>Your options</span></div>
+    <div class="options2">
+      <div class="tile tile-diy">
+        <h2>${esc(o.diy[0])}</h2>
+        <ul>${o.diy[1](stateIn(r.st)).map(t => `<li>${ic("i-dot")}${esc(t)}</li>`).join("")}</ul>
       </div>
-
-      <aside class="rcol rside">
-        <div class="rainbow cta-wrap o2 rise" style="animation-delay:.05s">
-          <section class="cta">
-            <div class="brand"><svg class="wg-logo" viewBox="0 0 194 40" role="img" aria-label="WorkGenius" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M28.0382 1.3867C25.6812 0.46589 23.1728 0 20.5795 0C9.41669 0 0.334961 8.97186 0.334961 19.9996C0.334961 31.0281 9.41669 40 20.5795 40C31.7423 40 40.824 31.0281 40.824 19.9996C40.7962 15.3868 39.1652 10.8888 36.2316 7.33942L36.2301 7.33868C35.494 6.4442 34.1512 6.31256 33.2365 7.04906C33.0478 7.21581 32.8641 7.4206 32.7287 7.62027L24.8807 21.0594L22.3686 16.7333C21.784 15.7423 20.4727 15.3949 19.4533 15.9631C19.0626 16.1804 18.8306 16.4861 18.7048 16.704L16.1597 21.0214L13.6491 16.7355C13.0623 15.7423 11.7539 15.3949 10.7324 15.9631C9.72256 16.5453 9.37863 17.8033 9.95745 18.8214L14.3135 26.2785C14.6926 26.9236 15.4009 27.3244 16.1619 27.3244C16.9222 27.3244 17.6306 26.9236 18.0103 26.2771L20.5224 21.989L23.0345 26.2778C23.4136 26.9236 24.1219 27.3244 24.8829 27.3244C25.6432 27.3244 26.3515 26.9236 26.7313 26.2771L34.7652 12.5359L35.333 13.886C36.146 15.8205 36.5587 17.8684 36.5587 19.9718C36.5587 28.6848 29.3905 35.7733 20.5795 35.7733C11.7685 35.7733 4.59959 28.6848 4.59959 19.9718C4.59959 11.2589 11.7685 4.17034 20.5795 4.17034C22.5567 4.17034 24.5324 4.53676 26.4518 5.25937C27.5567 5.67991 28.7978 5.15844 29.2185 4.0972C29.4219 3.57426 29.4117 3.00159 29.1885 2.48962C28.9668 1.97985 28.5577 1.58783 28.0382 1.3867Z"/><path d="M65.8743 23.9905H65.9598L68.6673 11.174H72.3724L67.9548 29.8776H64.4208L60.9438 17.5118H60.8583L57.3812 29.8494H53.8757L49.4296 11.1458H53.1347L55.8422 23.9623H55.9277L59.4902 11.1458H62.2833L65.8743 23.9905Z"/><path d="M73.1143 22.7837C73.1143 20.6993 73.7128 19.0092 74.8813 17.6853C76.0498 16.3614 77.6743 15.7135 79.7548 15.7135C81.8353 15.7135 83.4598 16.3614 84.6569 17.6853C85.8254 19.0092 86.4239 20.6993 86.4239 22.7837V23.0654C86.4239 25.1499 85.8254 26.8681 84.6569 28.1638C83.4883 29.4596 81.8638 30.1356 79.7833 30.1356C77.7028 30.1356 76.0783 29.4878 74.9098 28.1638C73.7413 26.8399 73.1428 25.1499 73.1428 23.0654V22.7837H73.1143ZM76.9048 23.0654C76.9048 24.333 77.1328 25.347 77.5888 26.1076C78.0448 26.8681 78.7573 27.2625 79.7833 27.2625C80.7523 27.2625 81.4933 26.8681 81.9208 26.1076C82.3768 25.347 82.6048 24.333 82.6048 23.0654V22.7837C82.6048 21.5443 82.3768 20.5585 81.9208 19.7697C81.4648 18.981 80.7238 18.6148 79.7548 18.6148C78.7858 18.6148 78.0448 19.0092 77.6173 19.7979C77.1898 20.5866 76.9333 21.5725 76.9333 22.8119V23.0654H76.9048Z"/><path d="M96.1397 19.1764L94.7431 19.1483C94.1731 19.1483 93.7171 19.2609 93.3466 19.4863C92.9761 19.7116 92.6911 20.0496 92.5201 20.4722V29.8521H88.7295V15.9371H92.2636L92.4346 17.9934C92.7766 17.261 93.2041 16.6976 93.7171 16.3033C94.2301 15.9089 94.8571 15.6836 95.5411 15.6836C95.7406 15.6836 95.9116 15.7118 96.0542 15.7399C96.2252 15.7681 96.3677 15.7963 96.5387 15.8526L96.1397 19.1764Z"/><path d="M102.898 24.0491H101.872V29.8799H98.0527V9.82422H101.843V21.2041H102.784L106.033 15.9649H110.422L105.919 22.2745L111.106 29.8799H106.745L102.898 24.0491Z"/><path d="M127.177 27.3178C126.607 28.0502 125.723 28.6981 124.555 29.2896C123.358 29.853 121.847 30.1628 120.023 30.1628C117.715 30.1628 115.834 29.4586 114.352 28.022C112.898 26.6136 112.157 24.7545 112.157 22.4729V18.5576C112.157 16.3041 112.87 14.445 114.266 13.0366C115.663 11.6 117.487 10.8958 119.71 10.8958C122.018 10.8958 123.785 11.4592 125.011 12.5578C126.236 13.6563 126.863 15.1211 126.892 16.9238L126.863 17.0083H123.301C123.244 16.0224 122.902 15.2337 122.332 14.6422C121.762 14.0507 120.935 13.769 119.824 13.769C118.655 13.769 117.715 14.2197 117.002 15.0929C116.29 15.9661 115.948 17.121 115.948 18.5012V22.4166C115.948 23.825 116.318 24.9799 117.059 25.8813C117.8 26.7545 118.798 27.2052 120.023 27.2052C120.907 27.2052 121.619 27.1207 122.161 26.9235C122.702 26.7545 123.101 26.5291 123.386 26.2474V22.7828H120.023V20.1913H127.177V27.3178Z"/><path d="M136.355 30.1356C134.331 30.1356 132.707 29.4877 131.481 28.2202C130.256 26.9244 129.657 25.2907 129.657 23.3189V22.8119C129.657 20.7556 130.227 19.0374 131.367 17.7135C132.507 16.3896 134.046 15.7135 135.984 15.7135C137.894 15.7135 139.347 16.2769 140.402 17.4036C141.456 18.5303 141.969 20.0514 141.969 21.995V24.0513H133.562L133.533 24.1358C133.59 25.0372 133.904 25.7977 134.474 26.3893C135.015 26.9808 135.785 27.2625 136.725 27.2625C137.552 27.2625 138.264 27.178 138.806 27.009C139.347 26.8399 139.974 26.5864 140.63 26.2202L141.656 28.53C141.086 29.0089 140.345 29.3751 139.404 29.6849C138.521 29.9948 137.495 30.1356 136.355 30.1356ZM136.013 18.5867C135.3 18.5867 134.759 18.8402 134.36 19.3754C133.961 19.9106 133.704 20.6148 133.619 21.4598L133.647 21.5162H138.293V21.1781C138.293 20.3894 138.093 19.7416 137.723 19.2627C137.352 18.8402 136.782 18.5867 136.013 18.5867Z"/><path d="M147.698 15.9671L147.869 17.967C148.325 17.2628 148.923 16.6994 149.607 16.3051C150.291 15.9107 151.061 15.7135 151.916 15.7135C153.341 15.7135 154.452 16.1642 155.25 17.0374C156.048 17.9107 156.447 19.2909 156.447 21.1782V29.8539H152.628V21.1782C152.628 20.2486 152.429 19.5726 152.058 19.1782C151.688 18.7839 151.089 18.5867 150.32 18.5867C149.807 18.5867 149.379 18.6994 148.98 18.8965C148.581 19.0937 148.239 19.3754 147.983 19.7416V29.8539H144.192V15.9389H147.698V15.9671Z"/><path d="M163.23 12.641H159.439V9.82422H163.23V12.641ZM163.23 29.8799H159.439V15.9649H163.23V29.8799Z"/><path d="M174.945 27.8505C174.518 28.5828 173.948 29.1462 173.292 29.5405C172.637 29.9349 171.867 30.1321 170.984 30.1321C169.502 30.1321 168.333 29.6532 167.507 28.7237C166.68 27.7941 166.253 26.3294 166.253 24.3576V15.9635H170.043V24.3858C170.043 25.3998 170.214 26.1322 170.556 26.5829C170.898 27.0336 171.411 27.2589 172.095 27.2589C172.694 27.2589 173.235 27.1744 173.663 26.9772C174.09 26.7801 174.461 26.4984 174.717 26.1322V15.9917H178.508V29.9067H175.287L174.945 27.8505Z"/><path d="M188.995 26.0491C188.995 25.6266 188.795 25.2886 188.396 24.9787C187.997 24.6689 187.256 24.4154 186.145 24.19C184.492 23.852 183.238 23.3731 182.383 22.6971C181.528 22.0492 181.129 21.1479 181.129 20.0211C181.129 18.8099 181.642 17.7959 182.668 16.979C183.694 16.1339 185.062 15.7396 186.743 15.7396C188.539 15.7396 189.964 16.1621 191.018 16.979C192.073 17.824 192.586 18.8662 192.557 20.1338L192.529 20.2183H188.852C188.852 19.655 188.681 19.2043 188.311 18.8662C187.94 18.5282 187.427 18.3311 186.743 18.3311C186.116 18.3311 185.632 18.4719 185.29 18.7817C184.948 19.0634 184.777 19.4578 184.777 19.8803C184.777 20.3028 184.948 20.669 185.318 20.9225C185.689 21.2042 186.43 21.4295 187.57 21.6549C189.308 21.9929 190.591 22.4999 191.417 23.176C192.244 23.852 192.671 24.7534 192.671 25.9083C192.671 27.1477 192.13 28.1899 191.047 28.9786C189.964 29.7673 188.539 30.1617 186.743 30.1617C184.862 30.1617 183.38 29.6828 182.297 28.7533C181.214 27.8237 180.701 26.7533 180.73 25.5421L180.758 25.4576H184.235C184.264 26.19 184.52 26.7533 184.976 27.0632C185.432 27.4012 186.059 27.5702 186.8 27.5702C187.513 27.5702 188.026 27.4294 188.396 27.1477C188.767 26.866 188.995 26.4998 188.995 26.0491Z"/></g></svg><span>Next step</span></div>
-            <h3>${esc(cta.title(stateIn(r.st)))}</h3>
-            <p>${esc(cta.body)}</p>
-            <ul>${cta.points.map(p => `<li>${ic("i-check")}${esc(p)}</li>`).join("")}</ul>
-            <div class="btns">
-              <a class="btn btn-primary" href="${cta.primary[1]}${utm}" target="_blank" rel="noopener">${esc(cta.primary[0])}${ic("i-arrow","i arrow")}</a>
-              ${cta.secondary ? (cta.secondary[1] === "#restart"
-                ? `<button class="btn btn-default" type="button" id="recheck">${ic("i-restart")}${esc(cta.secondary[0])}</button>`
-                : `<a class="btn btn-default" href="${cta.secondary[1]}${utm}" target="_blank" rel="noopener">${esc(cta.secondary[0])}</a>`) : ""}
-            </div>
-          </section>
-        </div>
-
-        <section class="glass memo o5 rise" style="animation-delay:.2s">
-          <h2>Email me this result as a PDF memo</h2>
-          <p class="sub" style="font-size:13.5px;color:var(--s500);margin-top:4px">Your answers, the rules in ${esc(name)}, and a checklist to share with Finance or Legal.</p>
-          <form id="memoForm" novalidate>
-            <input class="input" id="mEmail" type="email" placeholder="Work email" autocomplete="email" aria-label="Work email">
-            <div class="errmsg" id="mEmailErr" hidden></div>
-            <input class="input" id="mCo" placeholder="Company" autocomplete="organization" aria-label="Company">
-            <div class="errmsg" id="mCoErr" hidden></div>
-            <button class="btn btn-default" type="submit">${ic("i-doc")}Email me the memo</button>
-            <p class="fine">Your result stays free either way.</p>
-          </form>
-          <div id="memoSent" hidden></div>
-        </section>
-      </aside>
+      <div class="tile tile-wg">
+        ${LOGO}
+        <h2>Use WorkGenius</h2>
+        <p class="disclose">From WorkGenius, who built this check</p>
+        <ul>${o.wg.map(t => `<li>${ic("i-check")}${esc(t)}</li>`).join("")}</ul>
+        ${o.button
+          ? `<a class="btn btn-primary btn-lg" href="${ctaUrl(o.url, r)}" target="_blank" rel="noopener">${esc(o.button(STATE_NAME[r.st]))}${ic("i-arrow","i arrow")}</a>`
+          : `<a class="quiet-link" href="${ctaUrl(o.url, r)}" target="_blank" rel="noopener">${esc(o.link)}${ic("i-arrow","i arrow")}</a>`}
+      </div>
     </div>
-  </section>
-  <section class="view disclaimer"><div class="glass in">${esc(DISCLAIMER)}</div>
-    <div class="acts"><button class="btn btn-faded btn-sm" id="restartBtn" type="button">${ic("i-restart")}Restart the check</button></div></section>`, () => {
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      setKnob("resKnob", r.p);
-      document.querySelectorAll(".bar i[data-w]").forEach(b => b.style.width = b.dataset.w + "%");
-      const arc = document.querySelector(".confring .arc"); if (arc) arc.style.strokeDashoffset = arc.dataset.off;
-    }));
-    countUp($("#confNum"), r.confidence, "%");
+    <div class="r-foot">
+      <button type="button" id="restartBtn">${ic("i-restart")}Start over</button>
+      <p>An estimate based on your answers, not legal advice.</p>
+    </div>
+  </section>`, () => {
+    setTimeout(() => setKnob("resKnob", r.p), 350);
     $("#restartBtn").addEventListener("click", renderIntro);
-    const rc = $("#recheck"); if (rc) rc.addEventListener("click", startFlow);
-    bindMemo();
   }, "is-result");
-}
-function countUp(el, to, suf=""){
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches){ el.textContent = to + suf; return; }
-  const t0 = performance.now(), d = 1400;
-  const f = t => { const k = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(to * e) + suf; if (k < 1) requestAnimationFrame(f); };
-  requestAnimationFrame(f);
-}
-function bindMemo(){
-  const FREE = ["gmail.com","yahoo.com","hotmail.com","outlook.com","icloud.com","aol.com","proton.me","protonmail.com","live.com","me.com"];
-  $("#memoForm").addEventListener("submit", ev => {
-    ev.preventDefault();
-    const em = $("#mEmail"), co = $("#mCo"), v = em.value.trim(), dom = (v.split("@")[1] || "").toLowerCase();
-    const eMsg = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? "Enter a valid email address." : FREE.includes(dom) ? "Please use your work email." : "";
-    const cMsg = co.value.trim() ? "" : "Enter your company name.";
-    const setErr = (inp, box, msg) => { inp.classList.remove("err"); void inp.offsetWidth; inp.classList.toggle("err", !!msg); box.textContent = msg; box.hidden = !msg; };
-    setErr(em, $("#mEmailErr"), eMsg); setErr(co, $("#mCoErr"), cMsg);
-    if (eMsg || cMsg) return;
-    $("#memoForm").hidden = true;
-    const s = $("#memoSent"); s.hidden = false;
-    s.innerHTML = `<div class="sent"><span class="ok">${ic("i-check","")}</span><div><b>Sent (prototype)</b><span>In the live tool, the memo for ${esc(co.value.trim())} would arrive at ${esc(v)} within a minute.</span></div></div>`;
-  });
 }
 
 /* ---------- Demo hook: ?demo=employee|close|contractor ---------- */
