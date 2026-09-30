@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Contractor or employee? A 1-minute check for US companies | WorkGenius</title>
-<meta name="description" content="Answer up to 7 quick questions based on IRS, Department of Labor and state ABC tests. Most checks take under a minute.">
+<meta name="description" content="Answer up to 5 quick questions based on IRS, Department of Labor and state ABC tests. Most checks take under a minute.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -151,14 +151,10 @@ main{flex:1;position:relative}
 .qhead .back{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 14px 0 10px;border-radius:var(--pill);background:rgb(255 255 255 / .4);border:1px solid var(--s200);font-size:13.5px;font-weight:500;color:var(--s700);transition:background .2s}
 .qhead .back:hover{background:#fff}
 .qhead .back svg{width:14px;height:14px}
-.steps{display:flex;flex-direction:column;align-items:flex-end;gap:7px}
-.steps .lbl{font-size:13px;color:var(--s500);font-variant-numeric:tabular-nums}
-.steps .lbl b{color:var(--s700);font-weight:600}
-.segs{display:flex;gap:4px}
-.segs i{width:22px;height:4px;border-radius:99px;background:rgb(51 65 85 / .14);transition:background .4s}
-.segs i.done{background:var(--s700)}
-.segs i.cur{background:var(--s400)}
-.segs i.skip{background:transparent;box-shadow:inset 0 0 0 1px var(--s300)}
+.prog{display:flex;flex-direction:column;align-items:flex-end;gap:8px;width:220px}
+.prog .lbl{font-size:13px;font-weight:500;color:var(--s500);transition:opacity .3s}
+.prog .track{width:100%;height:6px;border-radius:99px;background:rgb(51 65 85 / .12);overflow:hidden}
+.prog .fill{display:block;height:100%;width:8%;border-radius:99px;background:var(--s700);transition:width .8s var(--ease)}
 .qcontent{margin-top:34px;text-align:center}
 .qcontent.out{animation:qOut .2s ease-in both}
 .qcontent.in{animation:qIn .5s var(--ease) both}
@@ -286,6 +282,7 @@ body.is-result .footer{display:none}
   .opt .key,.kbd{display:none}
   .states{grid-template-columns:1fr 1fr;gap:8px;margin-top:22px}
   .live{margin:14px 0 0;padding:14px 16px 12px}
+  .live .cap{flex-direction:column;gap:2px}
   .rwrap{padding:4px 12px 0}
   .result{padding:26px 20px 24px}
   .r-title{font-size:38px}
@@ -356,24 +353,14 @@ const QUESTIONS = [
   eA:1.0, eA_abc:2.0, eB:-0.8, basis:"ABC prong B · DOL integral work",
   why:"Under ABC tests, work in your usual line of business points strongly to employment. In California and Massachusetts this factor alone is close to decisive.",
   src:["California Labor Code 2775","https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=LAB&sectionNum=2775"]},
- {n:3, cat:"Independence", title:"Do they run their own business, with other clients?", short:"Own business and clients",
-  a:["No, it's mainly us","We are their main or only client"], b:["Yes, their own business","They have their own business and other clients"],
-  eA:1.0, eB:-1.4, basis:"ABC prong C · IRS financial control · DOL independent business",
-  why:"ABC prong C asks whether the worker is customarily engaged in an independently established business of the same kind, and the DOL weighs this too.",
-  src:["DOL Field Assistance Bulletin 2025-1","https://www.dol.gov/sites/dolgov/files/WHD/fab/fab2025-1.pdf"]},
- {n:4, cat:"Money", title:"How are they paid, and can they lose money?", short:"Pay and financial risk",
-  a:["For their time","Hourly, weekly, or monthly"], b:["A fixed fee per project","They carry their own costs and risk"],
-  eA:0.8, eB:-0.8, basis:"DOL core factor (profit or loss) · IRS financial control",
-  why:"The chance to make or lose money through their own decisions is the second core factor in the DOL's proposed test and part of the IRS financial test.",
+ {n:3, cat:"Independence", title:"Do they run their own business?", short:"Own business",
+  a:["No, they mainly work for us","Paid for their time, we cover the costs"], b:["Yes, with other clients","They set their price and carry their own costs"],
+  eA:1.4, eB:-1.6, basis:"ABC prong C · DOL core factor (profit or loss) · IRS financial control",
+  why:"ABC prong C asks whether the worker runs an independent business of the same kind, and the DOL's second core factor asks whether they can make or lose money through their own decisions.",
   src:["DOL 2026 proposed rule","https://www.federalregister.gov/documents/full_text/text/2026/02/27/2026-03962.txt"]},
- {n:5, cat:"History", title:"Have they (or anyone in this role) been your W-2 employee before?", short:"Former W-2 in this role",
-  a:["Yes","This person, or someone in the same role, was on our payroll"], b:["No","Nobody in this role has been our employee"],
-  eA:1.6, eB:-0.2, basis:"IRS Section 530 consistency · strong red flag",
-  why:"If you treated someone in this role as an employee before, federal Section 530 relief is no longer available and regulators take a closer look.",
-  src:["IRS: Section 530 relief","https://www.irs.gov/government-entities/worker-reclassification-section-530-relief"]},
- {n:6, cat:"Duration", title:"How long will this last?", short:"Length of the engagement",
-  a:["Ongoing, no set end","An open-ended engagement"], b:["A defined project","With an end date"],
-  eA:0.8, eB:-0.6, basis:"IRS relationship (permanency) · DOL permanence",
+ {n:4, cat:"Duration", title:"Is this an ongoing role or a project?", short:"Ongoing or project",
+  a:["Ongoing, no set end","An open-ended engagement"], b:["A project with an end date","A defined scope that finishes"],
+  eA:0.9, eB:-0.7, basis:"IRS relationship (permanency) · DOL permanence",
   why:"An ongoing, open-ended relationship is a classic sign of employment for both the IRS and the DOL.",
   src:["IRS: Type of relationship","https://www.irs.gov/businesses/small-businesses-self-employed/type-of-relationship"]}
 ];
@@ -401,6 +388,27 @@ function evaluate(st, answers){
   const confidence = Math.max(50, baseConf - 5 * notSure);
   const risk = Math.min(CAP, Math.max(100 - CAP, Math.round(p * 100)));
   return {st, prior, L, p, asked, stopped, done, rows, verdict, notSure, baseConf, confidence, risk};
+}
+
+/* Expected number of further factor questions, enumerating every future answer path
+   (A 0.45, B 0.45, Not sure 0.10) through the real early-stop logic. At most 3^4 = 81 paths. */
+const P_ANS = {A:0.45, B:0.45, N:0.10};
+function expectedRemaining(st, answers){
+  const r = evaluate(st, answers);
+  if (r.done) return 0;
+  const next = r.asked + 1;
+  let e = 0;
+  for (const [v, p] of Object.entries(P_ANS)) e += p * (1 + expectedRemaining(st, {...answers, [next]: v}));
+  return e;
+}
+const PROG_BASE = 0.08;
+/* Raw progress toward a decision: answered / (answered + E). The state screen counts as half a step. */
+function rawProgress(st, answers){
+  if (!st) return PROG_BASE;
+  const r = evaluate(st, answers);
+  if (r.done) return 1;
+  const E = expectedRemaining(st, answers), n = r.asked;
+  return n === 0 ? Math.max(PROG_BASE, 0.5 / (0.5 + E)) : n / (n + E);
 }
 
 /* =====================================================================
@@ -432,7 +440,7 @@ const app = $("#app");
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const ic = (id, cls="i") => `<svg class="${cls}"><use href="#${id}"/></svg>`;
 const sgn = E => E > 0 ? `+${E.toFixed(1)}` : E < 0 ? `−${Math.abs(E).toFixed(1)}` : "0";
-const S = {st:"", answers:{}, step:0};   // step 0 = state, 1..6 = factor questions
+const S = {st:"", answers:{}, step:0, hist:[]};   // step 0 = state, 1..4 = factor questions
 
 function swapView(html, after, bodyClass){
   const cur = app.firstElementChild;
@@ -461,7 +469,7 @@ function renderIntro(){
   swapView(`<section class="view intro">
     <span class="pill-note"><b>Free</b>For US companies · No signup needed</span>
     <h1>Contractor or employee?</h1>
-    <p class="lede">Answer up to 7 quick questions based on IRS, Department of Labor and state ABC tests. Most checks take under a minute.</p>
+    <p class="lede">Answer up to 5 quick questions based on IRS, Department of Labor and state ABC tests. Most checks take under a minute.</p>
     <div class="fork">
         <button class="fork-card fork-main" id="hireBtn" type="button">
           <span class="fork-ic">${ic("i-building")}</span>
@@ -490,7 +498,7 @@ function renderIntro(){
 }
 
 /* ---------- Flow ---------- */
-function startFlow(){ S.st = ""; S.answers = {}; S.step = 0; renderFlow(); }
+function startFlow(){ S.st = ""; S.answers = {}; S.step = 0; S.hist = []; renderFlow(); }
 function renderFlow(){
   swapView(`<section class="view qwrap">
     <div class="deck" id="deck" data-left="2">
@@ -498,7 +506,7 @@ function renderFlow(){
       <div class="glass qcard">
         <div class="qhead">
           <button class="back" id="backBtn" type="button">${ic("i-back")}Back</button>
-          <div class="steps"><span class="lbl" id="stepLbl"></span><span class="segs" id="segs">${QUESTIONS.map(()=>"<i></i>").join("")}</span></div>
+          <div class="prog" role="progressbar" aria-label="Closeness to an answer" aria-valuemin="0" aria-valuemax="100" id="prog"><span class="lbl" id="progLbl">Getting started</span><span class="track"><i class="fill" id="progFill"></i></span></div>
         </div>
         <div class="qcontent in" id="qc"></div>
       </div>
@@ -512,12 +520,20 @@ function renderFlow(){
     paintStep(0);
   }, "");
 }
-function paintChrome(){
-  const r = evaluate(S.st, S.answers);
+/* Progress bar: monotonic along the path (max with the previous step), recomputed per step on Back */
+function setProgress(v){
+  $("#progFill").style.width = (v * 100).toFixed(1) + "%";
+  $("#prog").setAttribute("aria-valuenow", Math.round(v * 100));
+  $("#progLbl").textContent = v >= 0.7 ? "Almost there" : v >= 0.35 ? "Getting clearer" : "Getting started";
+}
+function paintChrome(justAnswered = 0){
   const cur = S.step;
-  $("#stepLbl").innerHTML = cur === 0 ? `<b>Work state</b> · then up to 6 questions` : `Question <b>${cur}</b> of up to 6`;
-  const segs = [...document.querySelectorAll("#segs i")];
-  segs.forEach((s, i) => { s.className = i < cur - 1 ? "done" : i === cur - 1 ? "cur" : ""; });
+  const upto = Math.max(0, cur - 1 + justAnswered);
+  const sub = {}; for (const q of QUESTIONS) if (q.n <= upto && S.answers[q.n]) sub[q.n] = S.answers[q.n];
+  const r = evaluate(S.st, sub);
+  const prev = upto > 0 ? (S.hist[upto - 1] || 0) : 0;
+  S.hist[upto] = Math.max(prev, rawProgress(S.st, sub));
+  setProgress(S.hist[upto]);
   const left = cur === 0 ? 2 : Math.min(2, QUESTIONS.length - cur);
   $("#deck").dataset.left = left;
   // live meter
@@ -540,9 +556,9 @@ function paintStep(dir){
   qc.className = "qcontent out" + (dir < 0 ? " rev" : "");
   setTimeout(put, 200);
 }
-const QUICK = [["CA","ABC test"],["NY",""],["TX",""],["FL",""],["IL","ABC test"],["NJ","ABC test"],["MA","ABC test"],["WA",""]];
+const QUICK = [["CA","Strict state"],["NY",""],["TX",""],["FL",""],["IL","Strict state"],["NJ","Strict state"],["MA","Strict state"],["WA",""]];
 function stateHTML(){
-  const quick = QUICK.map(([c,tag]) => `<button type="button" class="st ${tag?"abc":""} ${S.st===c?"sel":""}" data-st="${c}"><b>${STATE_NAME[c]}</b><span>${tag || "Common-law tests"}</span></button>`).join("");
+  const quick = QUICK.map(([c,tag]) => `<button type="button" class="st ${tag?"abc":""} ${S.st===c?"sel":""}" data-st="${c}"><b>${STATE_NAME[c]}</b><span>${tag || "Standard rules"}</span></button>`).join("");
   const others = STATES.filter(([c]) => !QUICK.some(q => q[0] === c));
   return `<div class="qcat">Location</div>
     <h2 class="qtitle">Where will they mainly work?</h2>
@@ -554,12 +570,13 @@ function stateHTML(){
 }
 function questionHTML(q){
   const cur = S.answers[q.n];
-  const opt = (k, [m, d]) => `<button type="button" class="opt ${cur===k?"sel":""}" data-v="${k}" aria-pressed="${cur===k}">
-    <span class="dot">${ic("i-check","")}</span><span class="key" aria-hidden="true">${k}</span>
+  // contractor-leaning answer (B) on the left, employee-leaning (A) on the right, matching the slider
+  const opt = (k, label, [m, d]) => `<button type="button" class="opt ${cur===k?"sel":""}" data-v="${k}" aria-pressed="${cur===k}">
+    <span class="dot">${ic("i-check","")}</span><span class="key" aria-hidden="true">${label}</span>
     <span class="main">${esc(m)}</span><span class="detail">${esc(d)}</span></button>`;
   return `<div class="qcat">${esc(q.cat)}</div>
     <h2 class="qtitle">${esc(q.title)}</h2>
-    <div class="options">${opt("A", q.a)}${opt("B", q.b)}</div>
+    <div class="options">${opt("B", "A", q.b)}${opt("A", "B", q.a)}</div>
     <div class="qfoot"><button type="button" class="notsure ${cur==="N"?"sel":""}" data-v="N">Not sure</button></div>
     ${whyHTML(q.why, q.src)}
     <p class="kbd">Press <kbd>A</kbd>, <kbd>B</kbd> or <kbd>N</kbd></p>`;
@@ -587,7 +604,7 @@ function answer(v){
   if (S.answers[q.n] !== v) for (const k of QUESTIONS) if (k.n > q.n) delete S.answers[k.n];
   S.answers[q.n] = v;
   mark(document.querySelector(`#qc [data-v="${v}"]`));
-  paintChrome();
+  paintChrome(1);
   const r = evaluate(S.st, S.answers);
   setTimeout(() => {
     busy = false;
@@ -602,14 +619,13 @@ function back(){
 document.addEventListener("keydown", e => {
   if (!document.getElementById("qc") || S.step === 0 || e.metaKey || e.ctrlKey || e.altKey) return;
   if (e.target.closest && e.target.closest("input,select,textarea")) return;
-  const m = {a:"A", b:"B", n:"N"}[e.key.toLowerCase()];
+  const m = {a:"B", b:"A", n:"N"}[e.key.toLowerCase()]; // keys follow screen position
   if (m) answer(m);
 });
 function weigh(r){
   const qc = $("#qc");
   qc.className = "qcontent out";
-  $("#segs").querySelectorAll("i").forEach((s, i) => s.className = i < r.asked ? "done" : "skip");
-  $("#stepLbl").innerHTML = r.stopped ? `Decided after <b>${r.asked}</b> of 6` : `All <b>6</b> answered`;
+  setProgress(1);
   $("#deck").dataset.left = 0;
   setTimeout(() => {
     qc.className = "qcontent in";
@@ -658,9 +674,9 @@ function renderResult(r){
 
 /* ---------- Demo hook: ?demo=employee|close|contractor ---------- */
 const DEMOS = {
-  employee:{st:"CA", answers:{1:"A",2:"A"}},                                   // stops after 2
-  close:{st:"NY", answers:{1:"B",2:"A",3:"A",4:"B",5:"B",6:"A"}},             // all 6, L = +0.6
-  contractor:{st:"TX", answers:{1:"B",2:"B",3:"B"}}                            // stops after 3
+  employee:{st:"CA", answers:{1:"A",2:"A"}},                 // stops after 2
+  close:{st:"NY", answers:{1:"B",2:"A",3:"A",4:"B"}},        // all 4, L = +0.5
+  contractor:{st:"TX", answers:{1:"B",2:"B",3:"B"}}          // stops after 3
 };
 $("#homeBtn").addEventListener("click", renderIntro);
 const demo = new URLSearchParams(location.search).get("demo");
